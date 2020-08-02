@@ -88,40 +88,72 @@ const submitAnswers = async (req, res, next) => {
     let examData = await examAttemptService.getExamAnswers({ exam_id: ObjectId(examId), user_id: ObjectId(userId) }).catch(e => next(e))
     if (examData && examData.length > 0 && JSON.stringify(answerObject) != '{}') {
 
-        let marks_obtained = 0, correct_answers = 0, incorrect_answers = 0
-        for (var i in examData[0].questions_array) {
-
-            let question = examData[0].questions_array[i]
-            let answer = question.answers
-            if (answerObject[question.serial_number.toString()] && answer[answerObject[question.serial_number.toString()]]
-                && answer[answerObject[question.serial_number.toString()]].is_correct) {
-                marks_obtained += question.marks
-                correct_answers++
-            }
-            else {
-                marks_obtained -= 1
-                incorrect_answers++
-            }
+        if (examData[0].result_status && examData[0].result_status == "Completed") {
+            errMsg = "success";
+            errCode = 0;
+            res.send(baseController.generateResponse(errCode, errMsg, {
+                user_name: examData[0].name,
+                exam_name: examData[0].exam_name,
+                subject: examData[0].subject,
+                result: {
+                    marks_obtained: examData[0].marks_obtained,
+                    total_marks: examData[0].total_marks,
+                    correct: examData[0].correct_answers,
+                    incorrect: examData[0].incorrect_answers
+                }
+            }));
 
         }
+        else {
 
-        errMsg = "success";
-        errCode = 0;
-        res.send(baseController.generateResponse(errCode, errMsg, {
-            user_name: examData[0].name,
-            exam_name: examData[0].exam_name,
-            subject: examData[0].subject,
-            result: {
-                marks_obtained: marks_obtained,
-                total_marks: examData[0].total_marks,
-                correct: correct_answers,
-                incorrect: incorrect_answers
+            let marks_obtained = 0, correct_answers = 0, incorrect_answers = 0
+            for (var i in examData[0].questions_array) {
+
+                let question = examData[0].questions_array[i]
+                let answer = question.answers
+                if (answerObject[question.serial_number.toString()] && answer[answerObject[question.serial_number.toString()]]
+                    && answer[answerObject[question.serial_number.toString()]].is_correct) {
+                    marks_obtained += question.marks
+                    correct_answers++
+                }
+                else {
+                    marks_obtained -= 1
+                    incorrect_answers++
+                }
+
             }
-        }));
+
+            await examAttemptService.update({ user_id: userId, exam_id: examId }, {
+                $set: {
+                    marks_obtained: marks_obtained,
+                    total_marks: examData[0].total_marks,
+                    correct_answers: correct_answers,
+                    incorrect_answers: incorrect_answers,
+                    finish_date: new Date()
+                }
+            })
+
+
+            errMsg = "success";
+            errCode = 0;
+            res.send(baseController.generateResponse(errCode, errMsg, {
+                user_name: examData[0].name,
+                exam_name: examData[0].exam_name,
+                subject: examData[0].subject,
+                result: {
+                    marks_obtained: marks_obtained,
+                    total_marks: examData[0].total_marks,
+                    correct: correct_answers,
+                    incorrect: incorrect_answers
+                }
+            }));
+
+        }
     }
     else {
         res.send(baseController.generateResponse(errCode, errMsg));
     }
+
 }
 
 
