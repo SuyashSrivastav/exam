@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "6deab657-da5b-4586-aeac-394253ccc562",
+		"name": "Exams",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8001/user/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Suyash\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/user/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8001/user/get",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Suyash\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/user/get",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"user",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8001/exam/create-initial",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"exam_name\": \"Unit Test 1\",\r\n    \"subject\": \"Maths\",\r\n    \"access_key\": \"abcd\",\r\n    \"duration_in_mins\": 50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/exam/create-initial",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"exam",
+						"create-initial"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8001/exam/add-question",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"exam_id\": \"5f269c21416d244a50e81e60\",\r\n    \"question\": \"2 + 3 is:\",\r\n    \"answers_array\": [\r\n        \"1\",\r\n        \"6\",\r\n        \"8\",\r\n        \"5\"\r\n    ],\r\n    \"correct_answer\": \"6\",\r\n    \"marks\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/exam/add-question",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"exam",
+						"add-question"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8001/exam/start",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": \"5f269c13416d244a50e81e5f\",\r\n    \"exam_id\": \"5f269c21416d244a50e81e60\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/exam/start",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"exam",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8001/exam/get-questions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": \"5f261a664a39843ad8105922\",\r\n    \"exam_id\": \"5f261e7b9902513ecc1a5138\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/exam/get-questions",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"exam",
+						"get-questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8001/exam/submit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": \"5f269c13416d244a50e81e5f\",\r\n    \"exam_id\": \"5f269c21416d244a50e81e60\",\r\n    \"answer_object\": {\r\n        \"1\": \"c\",\r\n        \"2\": \"b\",\r\n        \"3\": \"c\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/exam/submit",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"exam",
+						"submit"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
