@@ -1,5 +1,5 @@
 # exam
-
+# A Node.js & MongoDB backend to create an examination papers and to conduct exams.
 
 
 How to use:
